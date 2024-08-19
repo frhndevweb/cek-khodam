@@ -1,1 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://github.com/frhndevweb/image/blob/master/IMG-20240729-WA0003.jpg?raw=true') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            color: #333;
+        }
 
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        button {
+            background: #007BFF;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            white-space: pre-wrap;
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #007BFF;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cek Khodam</h1>
+        <p>Masukkan nama Anda untuk mengetahui khodam yang menemani Anda.</p>
+        <div class="input-group">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" placeholder="Masukkan nama Anda">
+        </div>
+        <button id="checkButton">Cek Khodam</button>
+        <div id="result" class="result"></div>
+    </div>
+    <footer>© hannaaffiii</footer>
+    <script>
+        const usedNames = [];
+
+        document.getElementById('checkButton').addEventListener('click', function() {
+            const name = document.getElementById('name').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            if (name === "") {
+                resultDiv.textContent = "Silakan masukkan nama Anda.";
+                return;
+            }
+
+            if (usedNames.includes(name)) {
+                resultDiv.textContent = "Nama ini sudah digunakan. Silakan masukkan nama lain.";
+                return;
+            }
+
+            const khodams = [
+                'Khodam Harimau', 'Khodam Macan Putih', 'Khodam Naga', 'Khodam Garuda',
+                'Khodam Kuda Sembrani', 'Khodam Rusa Emas', 'Khodam Elang', 'Khodam Serigala',
+                'Khodam Singa', 'Khodam Banteng', 'Khodam Burung Merak', 'Khodam Buaya Putih',
+                'Khodam Kucing Hitam', 'Khodam Ular Naga', 'Khodam Burung Hantu', 'Khodam Anjing Pemburu',
+                'Khodam Kijang Emas', 'Khodam Kupu-kupu', 'Khodam Gajah', 'Khodam Phoenix',
+                'Khodam Rusdi', 'Khodam Kapal Karam', 'Khodam Hitam', 'Khodam Srigala Putih',
+                'Khodam Harimau Jawa', 'Khodam Kuda Laut', 'Khodam Ikan Duyung', 'Khodam Putri Duyung',
+                'Khodam Naga Laut', 'Khodam Elang Laut', 'Khodam Burung Rajawali', 'Khodam Lumba-lumba',
+                'Khodam Bintang Laut', 'Khodam Buaya Muara', 'Khodam Kuda Nil', 'Khodam Badak Putih',
+                'Khodam Kerbau Rawa', 'Khodam Anoa', 'Khodam Babirusa', 'Khodam Bekantan',
+                'Khodam Orangutan', 'Khodam Gajah Sumatera', 'Khodam Harimau Sumatera', 'Khodam Macan Tutul',
+                'Khodam Beruang Madu', 'Khodam Banteng Jawa', 'Khodam Kancil', 'Khodam Tapir',
+                'Khodam Kukang', 'Khodam Burung Cendrawasih', 'Khodam Rangkong', 'Khodam Burung Maleo'
+            ];
+            const randomIndex = Math.floor(Math.random() * khodams.length);
+            const khodam = khodams[randomIndex];
+
+            usedNames.push(name);
+            resultDiv.textContent = `Nama Anda: ${name}\nKhodam Anda: ${khodam}`;
+        });
+    </script>
+</body>
+</html>
